@@ -36,7 +36,7 @@ void DirectionalGate::Init(TConfigurationNode& t_tree) {
       cParametersNode = GetNode(t_tree, "params");
       GetNodeAttributeOrDefault(cParametersNode, "gate_width", m_fWidthShelter, (Real) 0.5);
       GetNodeAttributeOrDefault(cParametersNode, "gate_length", m_fHeightShelter, (Real) 0.5);
-    } catch(std::exception e) {
+    } catch(std::exception& e) {
     }
 
   CQuaternion angleWall;

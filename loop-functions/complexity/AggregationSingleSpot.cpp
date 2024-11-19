@@ -34,7 +34,7 @@ void AggregationSingleSpot::Init(TConfigurationNode& t_tree) {
       cParametersNode = GetNode(t_tree, "params");
       GetNodeAttribute(cParametersNode, "output_file", m_strOutputFile);
       OpenFile();
-    } catch(std::exception e) {
+    } catch(std::exception& e) {
     }
 }
 

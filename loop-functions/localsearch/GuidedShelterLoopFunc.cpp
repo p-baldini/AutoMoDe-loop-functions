@@ -44,7 +44,7 @@ void GuidedShelterLoopFunc::Init(TConfigurationNode& t_tree) {
         GetNodeAttributeOrDefault(cParametersNode, "w", m_fWidth, (Real) 0);
         GetNodeAttributeOrDefault(cParametersNode, "d", m_fDepth, (Real) 0);
         GetNodeAttributeOrDefault(cParametersNode, "o", m_fOffset, (Real) 0);
-    } catch(std::exception e) {
+    } catch(std::exception& e) {
         LOGERR << e.what() << std::endl;
     }
     /*CSpace::TMapPerType& tBoxMap = GetSpace().GetEntitiesByType("box");

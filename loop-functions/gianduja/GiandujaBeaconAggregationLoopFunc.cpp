@@ -56,7 +56,7 @@ void GiandujaBeaconAggregationLoopFunction::Init(TConfigurationNode& t_tree) {
     try {
         cParametersNode = GetNode(t_tree, "params");
         //GetNodeAttributeOrDefault(cParametersNode, "mes", m_unMesParam, (UInt32) 3);
-    } catch(std::exception e) {
+    } catch(std::exception& e) {
         LOGERR << e.what() << std::endl;
     }
     // if (m_unMesParam == 3) {

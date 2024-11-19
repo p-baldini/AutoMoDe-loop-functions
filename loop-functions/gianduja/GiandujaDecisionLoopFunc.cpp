@@ -64,7 +64,7 @@ void GiandujaDecisionLoopFunction::Init(TConfigurationNode& t_tree) {
     try {
       cParametersNode = GetNode(t_tree, "params");
       GetNodeAttributeOrDefault(cParametersNode, "patch", m_unPatchParam, (UInt32) 3);
-    } catch(std::exception e) {
+    } catch(std::exception& e) {
       LOGERR << e.what() << std::endl;
     }
 
