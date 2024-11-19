@@ -32,7 +32,7 @@ void AggregationSingleSpot::Init(TConfigurationNode& t_tree) {
     TConfigurationNode cParametersNode;
     try {
       cParametersNode = GetNode(t_tree, "params");
-    } catch(std::exception e) {
+    } catch(std::exception& ee) {
     }
 }
 
