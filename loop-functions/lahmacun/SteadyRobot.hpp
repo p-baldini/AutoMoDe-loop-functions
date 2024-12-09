@@ -1,5 +1,5 @@
 /**
- * @file <lahmacun/SteadyRobot.hpp>
+ * @file <loop-functions/lahmacun/SteadyRobot.hpp>
  * 
  * @author Paolo Baldini - <paolo.baldini.phd@gmail.com>
  * 

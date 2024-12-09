@@ -1,5 +1,5 @@
 /**
- * @file <lahmacun/SteadyRobot.cpp>
+ * @file <loop-functions/lahmacun/SteadyRobot.cpp>
  * 
  * @author Paolo Baldini - <paolo.baldini.phd@gmail.com>
  * 
@@ -14,8 +14,7 @@
 /***********************************************/
 /***********************************************/
 
-void SteadyRobot::Init(TConfigurationNode& t_node)
-{
+void SteadyRobot::Init(TConfigurationNode& t_node) {
     // set the wheel speed to zero to keep the robot still
     auto wheels = GetActuator<CCI_EPuckWheelsActuator>("epuck_wheels");
     wheels->SetLinearVelocity(0, 0);
@@ -33,8 +32,7 @@ void SteadyRobot::Init(TConfigurationNode& t_node)
 /***********************************************/
 /***********************************************/
 
-void SteadyRobot::ControlStep()
-{
+void SteadyRobot::ControlStep() {
     // get the rab messages received
     auto messages = rab_sensor->GetPackets();
 
@@ -44,14 +42,11 @@ void SteadyRobot::ControlStep()
     rab_sensor->ClearPackets();
 
     // if the robot should answer repair messages, then answer
-    if (received_repair && answer_messages)
-    {
+    if (received_repair && answer_messages) {
         UInt8 message[] = { robot_id, message_id++, 1, 1 };
         rab_actuator->SetData(message);
         answered = true;
-    }
-    else
-    {
+    } else {
         answered = false;
     }
 
@@ -62,16 +57,14 @@ void SteadyRobot::ControlStep()
 /***********************************************/
 /***********************************************/
 
-void SteadyRobot::Reset()
-{
+void SteadyRobot::Reset() {
     
 }
 
 /***********************************************/
 /***********************************************/
 
-void SteadyRobot::Destroy()
-{
+void SteadyRobot::Destroy() {
     
 }
 
