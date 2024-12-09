@@ -71,4 +71,4 @@ void SteadyRobot::Destroy() {
 /***********************************************/
 /***********************************************/
 
-REGISTER_CONTROLLER(SteadyRobot, "lahmacun_steady_controller")
+REGISTER_CONTROLLER(SteadyRobot, "lahmacun_steady_controller");
