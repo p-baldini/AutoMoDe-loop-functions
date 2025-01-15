@@ -61,6 +61,42 @@ void ColorManager::Init(TConfigurationNode& t_tree) {
     m_cFColor = sample ? CColor::GREEN : CColor::RED;
     m_cUColor = sample ? CColor::RED : CColor::GREEN;
 
+    UInt32 colorCode;
+    if (NodeAttributeExists(t_tree, "prizing_color")) {
+        GetNodeAttribute(t_tree, "prizing_color", colorCode);
+        switch(colorCode){
+            case 0:
+                m_cFColor = CColor::BLACK;
+                break;
+            case 1:
+                m_cFColor = CColor::GREEN;
+                break;
+            case 2:
+                m_cFColor = CColor::BLUE;
+                break;
+            case 3:
+                m_cFColor = CColor::RED;
+                break;
+        }
+    }
+    if (NodeAttributeExists(t_tree, "ignoring_color")) {
+        GetNodeAttribute(t_tree, "ignoring_color", colorCode);
+        switch(colorCode){
+            case 0:
+                m_cUColor = CColor::BLACK;
+                break;
+            case 1:
+                m_cUColor = CColor::GREEN;
+                break;
+            case 2:
+                m_cUColor = CColor::BLUE;
+                break;
+            case 3:
+                m_cUColor = CColor::RED;
+                break;
+        }
+    }
+
     /*********************************************************************************************/
     /* ROBOT DISTRIBUTION                                                                        */
     /*********************************************************************************************/
