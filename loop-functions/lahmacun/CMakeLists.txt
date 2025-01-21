@@ -19,6 +19,21 @@ target_link_libraries(lahmacun_color_manager_loop_function
 )
 
 #
+# Lahmacun Color Landmark experiment loop functions
+#
+
+add_library(lahmacun_landmark_manager_loop_function
+    SHARED
+        LandmarkManager.hpp
+        LandmarkManager.cpp
+        SteadyRobot.hpp
+        SteadyRobot.cpp
+)
+target_link_libraries(lahmacun_landmark_manager_loop_function
+    argos3plugin_${ARGOS_BUILD_FOR}_epuck
+)
+
+#
 # Lahmacun Color Reaction experiment controllers
 #
 
