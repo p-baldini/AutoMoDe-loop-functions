@@ -139,7 +139,7 @@ void ColorManager::Init(TConfigurationNode& t_tree) {
             position, CQuaternion(),
             false, 0.05, 0.01, 1
         );
-        AddEntity(*entity_block);        
+        AddEntity(*entity_block);
 
         // select the robots state: 33% of each type
         switch (i * 3 / numberEntities) {
