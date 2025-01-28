@@ -19,16 +19,10 @@ void LandmarkManager::Init(TConfigurationNode& t_tree) {
     /* PARAMETER PARSING                                                                         */
     /*********************************************************************************************/
 
-    Real arenaRadius;
-
     // check that the node is of the desired type
     assert(t_tree.Value() == "loop_functions");
     assert(NodeExists(t_tree, "params"));
     t_tree = GetNode(t_tree, "params");
-
-    // check that the node contains the desired information and retrieve it
-    assert(NodeAttributeExists(t_tree, "arena_radius"));
-    GetNodeAttribute(t_tree, "arena_radius", arenaRadius);
 
     /*********************************************************************************************/
     /* ARENA CREATION                                                                            */
