@@ -163,7 +163,7 @@ void ColorManager::Init(TConfigurationNode& t_tree) {
     CVector2 candidate;
 
     // create a function to check that the robot candidate position is not over another entity
-    auto is_overlapping = [candidate](auto position){ return Distance(position, candidate) < 0.1; };
+    auto is_overlapping = [&candidate](auto position){ return Distance(position, candidate) < 0.1; };
 
     do {
         // sample a candidate position for the acting robot in the arena
