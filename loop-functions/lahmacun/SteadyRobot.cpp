@@ -29,7 +29,7 @@ void SteadyRobot::Init(TConfigurationNode& t_node) {
     robot_id = atoi(GetId().substr(7, 6).c_str());
 
     // the initial message is the index of the robot + 1
-    message = (robot_id << 24) + 1; 
+    message = (robot_id << 24) + 1;
 }
 
 /***********************************************/
