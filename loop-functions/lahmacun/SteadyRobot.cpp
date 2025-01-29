@@ -40,7 +40,7 @@ void SteadyRobot::ControlStep() {
     auto messages = rab_sensor->GetPackets();
 
     // check if at least a message has the repair content
-    auto checker = [this](auto o) { return o->Data[0] != 0; };
+    auto checker = [this](auto o) { return o->Data[0] != 0 && o->Range < 10; };
     bool received_repair = std::any_of(messages.begin(), messages.end(), checker);
     rab_sensor->ClearPackets();
 
@@ -48,6 +48,7 @@ void SteadyRobot::ControlStep() {
     if (received_repair && answer_messages) {
         rab_actuator->SetData((UInt8*)&message);
         answered = true;
+        message++;
     } else {
         answered = false;
     }
