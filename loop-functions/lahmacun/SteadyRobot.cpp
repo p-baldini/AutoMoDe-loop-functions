@@ -27,6 +27,9 @@ void SteadyRobot::Init(TConfigurationNode& t_node) {
 
     // get the robot id from its name (max 6 characters)
     robot_id = atoi(GetId().substr(7, 6).c_str());
+
+    // the initial message index is 1
+    message_id = 1; 
 }
 
 /***********************************************/
@@ -43,9 +46,12 @@ void SteadyRobot::ControlStep() {
 
     // if the robot should answer repair messages, then answer
     if (received_repair && answer_messages) {
-        UInt8 message[] = { robot_id, message_id++, 1, 1 };
+        UInt8 message[] = { robot_id, message_id, 1, 1 };
         rab_actuator->SetData(message);
         answered = true;
+
+        // if the message overflowed, reset it to 1 instead of 0
+        message_id = message_id == 255 ? 1 : message_id + 1;
     } else {
         answered = false;
     }
