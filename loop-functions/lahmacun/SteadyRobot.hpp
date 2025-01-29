@@ -59,7 +59,7 @@ class SteadyRobot : public CCI_Controller {
 
     private:
         UInt8 robot_id;                                 ///< The ID of the robot in argos.
-        UInt8 message_id;                               ///< Incremental counter containing the ID
+        UInt32 message_id;                              ///< Incremental counter containing the ID
                                                         ///< of the message: it avoids perceiving
                                                         ///< messages from other sensors
                                                         ///< considering them different.
