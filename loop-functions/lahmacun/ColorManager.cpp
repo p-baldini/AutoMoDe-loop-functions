@@ -98,7 +98,7 @@ void ColorManager::Init(TConfigurationNode& t_tree) {
     }
 
     /*********************************************************************************************/
-    /* ROBOT DISTRIBUTION                                                                        */
+    /* ENTITIES DISTRIBUTION                                                                     */
     /*********************************************************************************************/
 
     std::vector<CVector2> positions;
@@ -154,6 +154,37 @@ void ColorManager::Init(TConfigurationNode& t_tree) {
                 break;
         }
     }
+
+    /*********************************************************************************************/
+    /* ROBOT DISTRIBUTION                                                                        */
+    /*********************************************************************************************/
+
+    trials = 0;
+    CVector2 candidate;
+
+    // create a function to check that the robot candidate position is not over another entity
+    auto is_overlapping = [candidate](auto position){ return Distance(position, candidate) < 0.1; };
+
+    do {
+        // sample a candidate position for the acting robot in the arena
+        CRadians angle = m_pcRNG->Uniform(CRange<CRadians>(CRadians::ZERO, CRadians::TWO_PI));
+        Real magnitude = m_pcRNG->Uniform(CRange<Real>(0, arenaRadius));
+        candidate = CVector2(magnitude, angle);
+
+    // iterate until a suitable position is found or until the max trials
+    } while (
+        ! std::any_of(positions.begin(), positions.end(), is_overlapping) && trials++ < maxTrials
+    );
+
+    // if no valid position has been found, throw an exception
+    if (trials >= maxTrials) {
+        THROW_ARGOSEXCEPTION("Can't move the epuck entity.");
+    }
+
+    // move the robot entity to the selected position
+    CEPuckEntity& epuck = dynamic_cast<CEPuckEntity&>(GetSpace().GetEntity("epuck0"));
+    CVector3 position = CVector3(candidate.GetX(), candidate.GetY(), .0);
+    MoveEntity(epuck.GetEmbodiedEntity(), position, CQuaternion());
 }
 
 /****************************************/
@@ -202,6 +233,13 @@ void ColorManager::Reset() {
 /****************************************/
 
 void ColorManager::Destroy() {}
+
+/****************************************/
+/****************************************/
+
+CColor ColorManager::GetFloorColor(const CVector2& c_position_on_plane) {
+    return CColor::GRAY50;
+}
 
 /****************************************/
 /****************************************/

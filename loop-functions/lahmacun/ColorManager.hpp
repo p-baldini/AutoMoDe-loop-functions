@@ -56,6 +56,12 @@ class ColorManager: public CoreLoopFunctions {
         virtual void Destroy();
 
         /**
+         * Return the color of the floor in a specific point. Used to build the floor instance from
+         * the loop functions when specified in the arena file.
+         */
+        CColor GetFloorColor(const CVector2& c_position_on_plane);
+
+        /**
          * Method to obtain the performance computed by the loop-function. In this experiment we do
          * not compute the performance with the loop function and therefore it returns 0.
          * 
