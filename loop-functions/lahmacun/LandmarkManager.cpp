@@ -7,7 +7,13 @@
  */
 #include "LandmarkManager.hpp"
 
+#include "SteadyRobot.hpp"
+
 #include <argos3/plugins/robots/arena/simulator/arena_entity.h>
+#include <argos3/plugins/simulator/entities/cylinder_entity.h>
+#include <argos3/plugins/robots/e-puck/simulator/epuck_entity.h>
+
+#define CONTROLLER_NAME "steady-controller"
 
 /****************************************/
 /****************************************/
@@ -64,6 +70,72 @@ void LandmarkManager::Init(TConfigurationNode& t_tree) {
             pcArena->SetWallColor(i + 1, CColor::RED);
         }
     }
+
+    /*********************************************************************************************/
+    /* CENTRAL BEACON SET-UP                                                                     */
+    /*********************************************************************************************/
+
+    // check if the beacon color is specified in the argos file
+    for (auto i = 0; true; i++) {
+        std::ostringstream color, xstr, ystr;
+        color.str("");
+        color << "b" << i;
+
+        xstr.str("");
+        xstr << "x" << i;
+        ystr.str("");
+        ystr << "y" << i;
+
+        if (
+            ! NodeAttributeExists(t_tree, color.str())
+            ||
+            ! NodeAttributeExists(t_tree, xstr.str())
+            ||
+            ! NodeAttributeExists(t_tree, ystr.str())
+        ) {
+            break;
+        }
+
+        UInt8 colorCode;
+        Real x, y;
+        GetNodeAttribute(t_tree, color.str(), colorCode);
+        GetNodeAttribute(t_tree, xstr.str(), x);
+        GetNodeAttribute(t_tree, ystr.str(), y);
+
+        // create the beacon entity
+        std::ostringstream entity_id;
+        entity_id.str("");
+        entity_id << "entity_" << i;
+        CVector3 position(y, x, .0);
+        auto entity = new CEPuckEntity(entity_id.str(), CONTROLLER_NAME, position);
+        AddEntity(*entity);
+
+        // create a block to prevent the beacon to be moved
+        std::ostringstream entity_block_id;
+        entity_block_id.str("");
+        entity_block_id << "entity_block_" << i;
+        auto entity_block = new CCylinderEntity(
+            entity_block_id.str(),
+            position, CQuaternion(),
+            false, 0.05, 0.01, 1
+        );
+        AddEntity(*entity_block);
+        SteadyRobot& c = dynamic_cast<SteadyRobot&>(entity->GetControllableEntity().GetController());
+        switch (colorCode) {
+            case 0:
+                c.current_color = CColor::BLACK;
+                break;
+            case 1:
+                c.current_color = CColor::GREEN;
+                break;
+            case 2:
+                c.current_color = CColor::BLUE;
+                break;
+            case 3:
+                c.current_color = CColor::RED;
+                break;
+        }
+    }
 }
 
 /****************************************/
@@ -101,11 +173,11 @@ CColor LandmarkManager::GetFloorColor(const CVector2& c_position_on_plane) {
     CVector2 left_center(0, 0.3);
     CVector2 right_center(0, -0.3);
 
-    if (Distance(left_center, c_position_on_plane) < 0.1) {
+    if (Distance(left_center, c_position_on_plane) < 0.15) {
         return CColor::BLACK;
     }
 
-    if (Distance(right_center, c_position_on_plane) < 0.1) {
+    if (Distance(right_center, c_position_on_plane) < 0.15) {
         return CColor::WHITE;
     }
 
