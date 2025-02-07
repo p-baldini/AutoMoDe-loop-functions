@@ -39,7 +39,7 @@ void LandmarkManager::Init(TConfigurationNode& t_tree) {
         "arena",
         CVector3(0,0,0),
         CQuaternion().FromEulerAngles(CRadians::ZERO,CRadians::ZERO,CRadians::ZERO), // TODO
-        CVector3(0.01,0.1,0.1), // assuming arena wall size = 60cm
+        CVector3(0.01,0.083,0.1), // assuming arena wall size = 50cm
         "leds",
         6,
         6,
