@@ -58,8 +58,6 @@ void LandmarkManager::Init(TConfigurationNode& t_tree) {
         std::ostringstream param;
         param.str("");
         param << "c" << i;
-        std::cout << param.str() << " " << i << "\n";
-        std::flush(std::cout);
         assert(NodeAttributeExists(t_tree, param.str()));
         GetNodeAttribute(t_tree, param.str(), colorCode);
         pcArena->SetWallColor(i + 1, CColor::BLACK);
