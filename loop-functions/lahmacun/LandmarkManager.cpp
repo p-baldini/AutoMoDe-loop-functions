@@ -168,8 +168,8 @@ void LandmarkManager::Destroy() {
 /****************************************/
 
 CColor LandmarkManager::GetFloorColor(const CVector2& c_position_on_plane) {
-    CVector2 left_center(0, 0.3);
-    CVector2 right_center(0, -0.3);
+    CVector2 left_center(0, 0.25);
+    CVector2 right_center(0, -0.25);
 
     if (Distance(left_center, c_position_on_plane) < 0.15) {
         return CColor::BLACK;
